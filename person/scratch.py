@@ -56,3 +56,9 @@ class Scratch:
     commonset += f"Daily plan requirement: {self.daily_plan_req}\n"
     commonset += f"Current Date: {self.curr_time.strftime('%A %B %d')}\n"
     return commonset
+
+  def get_str_lifestyle(self): 
+    return self.lifestyle
+
+  def get_str_firstname(self): 
+    return self.first_name
