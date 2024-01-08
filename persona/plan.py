@@ -47,7 +47,7 @@ def generate_first_daily_plan(persona, wake_up_hour):
   # if debug: print ("GNS FUNCTION: <generate_first_daily_plan>")
   return run_gpt_prompt_daily_plan(persona, wake_up_hour)[0]
 
-def plan(persona, maze, personas, new_day, retrieved):
+def plan(persona):
   """
   Main cognitive function of the chain. It takes the retrieved memory and
   perception, as well as the maze and the first day state to conduct both
@@ -71,4 +71,5 @@ def plan(persona, maze, personas, new_day, retrieved):
   """
   # PART 1: Generate the hourly schedule.
   wake_up_hour = generate_wake_up_hour(persona)
+  print('wake up hour: ', wake_up_hour)
   persona.scratch.daily_req = generate_first_daily_plan(persona, wake_up_hour)

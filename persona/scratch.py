@@ -1,3 +1,7 @@
+import json
+import datetime
+from tools.file import check_if_file_exists
+
 class Scratch:
   def __init__(self, f_saved):
 
@@ -23,6 +27,27 @@ class Scratch:
     self.currently = None
     self.lifestyle = None
     self.daily_req = []
+
+    if check_if_file_exists(f_saved): 
+      # If we have a bootstrap file, load that here. 
+      scratch_load = json.load(open(f_saved))
+      if scratch_load["curr_time"] is not None: 
+        self.curr_time = datetime.datetime.strptime(scratch_load["curr_time"],
+                                                  "%B %d, %Y, %H:%M:%S")
+      else: 
+        self.curr_time = None
+      self.curr_tile = scratch_load["curr_tile"]
+      self.daily_plan_req = scratch_load["daily_plan_req"]
+
+      self.name = scratch_load["name"]
+      self.first_name = scratch_load["first_name"]
+      self.last_name = scratch_load["last_name"]
+      self.age = scratch_load["age"]
+      self.innate = scratch_load["innate"]
+      self.learned = scratch_load["learned"]
+      self.currently = scratch_load["currently"]
+      self.lifestyle = scratch_load["lifestyle"]
+      self.daily_req = scratch_load["daily_req"]
 
   def get_str_iss(self):
     """
@@ -55,7 +80,8 @@ class Scratch:
     commonset += f"Currently: {self.currently}\n"
     commonset += f"Lifestyle: {self.lifestyle}\n"
     commonset += f"Daily plan requirement: {self.daily_plan_req}\n"
-    commonset += f"Current Date: {self.curr_time.strftime('%A %B %d')}\n"
+    if self.curr_time is not None:
+      commonset += f"Current Date: {self.curr_time.strftime('%A %B %d')}\n"
     return commonset
 
   def get_str_lifestyle(self):
@@ -63,3 +89,7 @@ class Scratch:
 
   def get_str_firstname(self):
     return self.first_name
+
+
+  def get_str_curr_date_str(self): 
+    return self.curr_time.strftime("%A %B %d")
